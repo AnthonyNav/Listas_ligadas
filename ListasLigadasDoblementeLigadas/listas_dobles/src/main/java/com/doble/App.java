@@ -6,8 +6,7 @@ package com.doble;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ){
         System.out.println( "Que rollito, soy el proyecto de listas dobles" );
     }
 }
