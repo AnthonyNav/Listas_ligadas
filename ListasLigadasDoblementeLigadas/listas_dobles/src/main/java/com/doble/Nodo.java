@@ -1,9 +1,9 @@
 package com.doble;
 
 public class Nodo {
-    int dato;
-    Nodo next;
-    Nodo prev;
+    private int dato;
+    private Nodo next;
+    private Nodo prev;
 
     public Nodo(int dato) {
         this.dato = dato;

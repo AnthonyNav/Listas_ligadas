@@ -17,7 +17,6 @@ public class App
         boolean salir = false;
 
         int opcion, oplist;
-        System.out.println("Hola");
         while (!salir) {
             System.out.println("Menú:");
             System.out.println("1. Insertar elemento");
@@ -37,7 +36,7 @@ public class App
                 auxprint = (l2.estaVacia()) ? " ":l2.imprimirElementos();
                 System.out.println("L2)" + auxprint);
                 System.out.println("\n");
-                System.out.println("Desea aplicar los cambios a la lista 1? \n1)L1\n2)L2");
+                System.out.println("Seleccione una lista para realizar la accion: \n1) L1\n2) L2");
                 oplist = scan.nextInt();
                 auxl = (oplist == 1) ? l1:l2;
             }
@@ -63,22 +62,38 @@ public class App
                             auxl.insertarFinal(scan.nextInt());
                             break;
                         case 3:
-                            opcion = scan.nextInt();  // Reutilizamos la variable opcion 
-                            System.out.println("Dame el dato x:");
-                            auxl.insertarDerX(opcion, scan.nextInt());
+                            if (!auxl.estaVacia()) {
+                                opcion = scan.nextInt();  // Reutilizamos la variable opcion 
+                                System.out.println("Dame el dato x:");
+                                auxl.insertarDerX(opcion, scan.nextInt());
+                            } else {
+                                System.out.println("No es posible buscar X si la lista esta vacia");
+                            }
                             break;
                         case 4:
-                            opcion = scan.nextInt();  // Reutilizamos la variable opcion 
-                            System.out.println("Dame el dato x:");
-                            auxl.insertarIzqX(opcion, scan.nextInt());
+                            if (!auxl.estaVacia()) {
+                                opcion = scan.nextInt();  // Reutilizamos la variable opcion 
+                                System.out.println("Dame el dato x:");
+                                auxl.insertarIzqX(opcion, scan.nextInt());
+                            } else {
+                                System.out.println("No es posible buscar X si la lista esta vacia");
+                            }
                             break;
                         case 5:
-                            opcion = scan.nextInt();  // Reutilizamos la variable opcion 
-                            System.out.println("Dame la posicion i:");
-                            auxl.insertarIPos(opcion, scan.nextInt());
+                            if (!auxl.estaVacia()) {
+                                opcion = scan.nextInt();  // Reutilizamos la variable opcion 
+                                System.out.println("Dame la posicion i:");
+                                auxl.insertarIPos(opcion, scan.nextInt());
+                            } else {
+                                System.out.println("No es posible ubicar el dato en la i-esima posicion si la lista esta vacia");
+                            }
                             break;
                         case 6:
-                            auxl.ascendente(scan.nextInt());
+                            if (!auxl.estaVacia()) {
+                                auxl.ascendente(scan.nextInt()); 
+                            } else {
+                                auxl.insertarInicio(scan.nextInt());
+                            }
                             break;
                         default:
                         System.out.println("Opcion no valida");

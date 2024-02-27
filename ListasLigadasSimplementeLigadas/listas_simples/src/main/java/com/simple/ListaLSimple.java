@@ -80,9 +80,14 @@ public class ListaLSimple {
             auxNodo = auxNodo.getNext();
         }
         if (auxNodo.getDato() == x) {
-            Nodo n = new Nodo(dato);
-            n.setNext(auxNodo);
-            auxNodo2.setNext(n);
+            if (auxNodo == this.inicio) {
+                insertarInicio(dato);
+            } else {
+                Nodo n = new Nodo(dato);
+                n.setNext(auxNodo);
+                auxNodo2.setNext(n);
+            }
+            
             return true;
         }
         return false;
@@ -161,9 +166,9 @@ public class ListaLSimple {
             
             if (auxNodo.getNext() != null) {
                 auxNodo.setNext(auxNodo.getNext().getNext());
-            } else {
-                auxNodo.setNext(null);
-            }
+            } //else {
+            //     auxNodo.setNext(null);
+            // }
             return true;
         } 
         return false;
