@@ -385,28 +385,6 @@ public class ListaLDoble {
         this.inicio=null;
     }
 
-    public boolean eliminarIzqXT(int x){
-        Nodo auxNodo = this.inicio;
-        while (auxNodo.getNext()!=null) {
-            if (auxNodo.getDato() == x) {
-                break;
-            }
-            auxNodo = auxNodo.getNext();
-        }
-        if (auxNodo.getDato() == x) {
-            if (auxNodo.getPrev() != null) {
-                Nodo auxNodo2 = auxNodo.getPrev();
-                if (auxNodo2.getPrev() != null) {
-                    auxNodo2.getPrev().setNext(auxNodo);
-                    auxNodo.setPrev(auxNodo2.getPrev());
-                } else {
-                    this.eliminarInicio();
-                }
-            }
-            return true;
-        }
-        return false;
-    }
     
     public boolean estaVacia(){
         return inicio==null;
