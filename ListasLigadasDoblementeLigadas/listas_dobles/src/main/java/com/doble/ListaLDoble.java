@@ -389,4 +389,8 @@ public class ListaLDoble {
     public boolean estaVacia(){
         return inicio==null;
     }
+    
+    public boolean convertir(){
+        return inicio==null;
+    }
 }
