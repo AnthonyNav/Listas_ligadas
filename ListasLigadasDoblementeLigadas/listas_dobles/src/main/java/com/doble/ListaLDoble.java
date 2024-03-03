@@ -257,6 +257,7 @@ public class ListaLDoble {
                     if (auxNodo.getNext() != null) {
                         auxNodo.getPrev().setNext(auxNodo.getNext());
                         auxNodo.getNext().setPrev(auxNodo.getPrev());
+                        auxNodo = this.inicio;
                     } else {
                         this.eliminarFinal();
                     }
