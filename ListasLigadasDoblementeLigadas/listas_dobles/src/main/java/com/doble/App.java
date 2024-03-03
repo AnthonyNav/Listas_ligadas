@@ -168,14 +168,14 @@ public class App
                     }
                     break;
                 case 5:
-                    if(l1==null && l2==null)
+                    if(l1.getInicio()==null && l2.getInicio()==null)
                     System.out.println("Las listas estan vacias");
                     else
                     {
-                        if(l1==null)
+                        if(l1.getInicio()==null)
                             System.out.println("La lista 1 esta vacia");
                         else
-                            if(l2==null)
+                            if(l2.getInicio()==null)
                                 System.out.println("La lista 2 esta vacia");
                             else 
                             {
