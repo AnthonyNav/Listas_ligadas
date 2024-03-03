@@ -20,25 +20,25 @@ public class ListaLDoble {
     // Metodos de insercion
     public void insertarInicio(int dato){
         Nodo n = new Nodo(dato);
-        if (estaVacia()) {
-            this.inicio = n;
-        } else {
-            n.setNext(this.inicio); // n->init
-            this.inicio.setPrev(n); // n <-- init
+        if (estaVacia()) { // Si esta vacia
+            this.inicio = n; // Apuntamos al nuevo nodo
+        } else { // Sino ligamos y referenciamos al nuevo nodo
+            n.setNext(this.inicio); 
+            this.inicio.setPrev(n); 
             this.inicio = n;
         }
     }
 
     public void insertarFinal(int dato){
         Nodo n = new Nodo(dato);
-        if (this.estaVacia()) {
-            this.inicio = n;
-        } else {
+        if (this.estaVacia()) { // Si esta vacia
+            this.inicio = n; // Solo se referencia a n
+        } else { // Sino se recorre hasta el ultimo nodo
             Nodo auxNodo = this.inicio;
             while (auxNodo.getNext() != null) {
                 auxNodo = auxNodo.getNext();
             }
-            auxNodo.setNext(n);
+            auxNodo.setNext(n); // Se inserta al final
             n.setPrev(auxNodo);
         }
     }
@@ -93,21 +93,21 @@ public class ListaLDoble {
     public boolean insertarIPos(int dato ,int i){
         Nodo auxNodo = this.inicio;
         int counter = 1;
-        while (auxNodo.getNext()!=null) {
-            if (counter == i) {
+        while (auxNodo.getNext()!=null) { // Recorre la lista
+            if (counter == i) { // Sale si encuentra la posicion
                 break;
             }
             counter++;
             auxNodo = auxNodo.getNext();
         }
         if (counter == i) {
-            if (i == 1) {
+            if (i == 1) { // Si i es la posicion inicial
                 this.insertarInicio(dato);
-            } else {
+            } else { // Sino se hacen los intercambios
                 Nodo n = new Nodo(dato);
                 n.setNext(auxNodo);
-                if (auxNodo.getPrev() != null) {
-                    auxNodo.getPrev().setNext(n);
+                if (auxNodo.getPrev() != null) { // Si no es el ultimo nodo
+                    auxNodo.getPrev().setNext(n); // Ligamos el nodo anterior a n
                 }
                 n.setPrev(auxNodo.getPrev());
                 auxNodo.setPrev(n);
@@ -116,6 +116,7 @@ public class ListaLDoble {
         }
         return false;
     }
+
     public void ascendente(int dato){  // La funcion supone que esta previamente ordenada la lista y que no este vacia
         Nodo auxNodo = this.inicio;
 
@@ -141,33 +142,33 @@ public class ListaLDoble {
 
     public void eliminarFinal(){
         Nodo auxNodo = this.inicio;
-        while (auxNodo.getNext() != null) {
+        while (auxNodo.getNext() != null) { // Recorrer
             auxNodo = auxNodo.getNext();
         }
-        if (auxNodo == this.inicio) {
+        if (auxNodo == this.inicio) { // Caso inicio
             this.eliminarInicio();
-        } else {
-            auxNodo.getPrev().setNext(null); 
+        } else { // Caso normal
+            auxNodo.getPrev().setNext(null); // desligar
         }
     }
 
     public boolean eliminarDerX(int x){
         Nodo auxNodo = this.inicio;
         Nodo auxNodo2;
-        while (auxNodo.getNext() != null) { // nos ubicara en el nodo que contenga a x
+        while (auxNodo.getNext() != null) { // Recorre
             if (auxNodo.getDato() == x) {
-                break;
+                break; // Sale si encuentra a X
             }
-            auxNodo = auxNodo.getNext();   // o al ultimo nodo 
+            auxNodo = auxNodo.getNext();   
         }
         if (auxNodo.getDato() == x) { // En este caso se ubico a x y se inserto el dato
             
-            if (auxNodo.getNext() != null) {
+            if (auxNodo.getNext() != null) { // Si X no es el ultimo nodo
                 auxNodo2 = auxNodo.getNext();
                 if (auxNodo2.getNext() != null) {
                     auxNodo2.getNext().setPrev(auxNodo);
                     auxNodo.setNext(auxNodo2.getNext());
-                } else{
+                } else { // Si es el ultimo nodo
                     this.eliminarFinal();
                 }
             }
@@ -275,7 +276,115 @@ public class ListaLDoble {
         output = output + " " + auxNodo.getDato();
         return output;
     }
+
+    // public void invertirLista() {
+    //     ListaLDoble listaInvertida = new ListaLDoble();
+    //     while (!this.estaVacia()) {
+    //         Nodo nodoEliminado = this.getInicio();
+    //         while (nodoEliminado.getNext() != null) {
+    //             nodoEliminado = nodoEliminado.getNext();
+    //         }
+    //         if (nodoEliminado == this.getInicio()) {
+    //             this.setInicio(null);
+    //         } else {
+    //             nodoEliminado.getPrev().setNext(null);
+    //         }
+    //         listaInvertida.insertarInicio(nodoEliminado.getDato()); // Inserta el nodo al inicio de la lista invertida
+    //     }
+    //     // Actualiza la lista original con la lista invertida
+    //     this.setInicio(listaInvertida.getInicio());
+    // }
+
+    public void invertirLista() {
+        ListaLDoble listaInvertida = new ListaLDoble();
+        if (!this.estaVacia()) {
+            while (!this.estaVacia()) {
+                Nodo nodoEliminado = this.getInicio();
+                this.inicio = this.inicio.getNext(); // Actualiza el inicio de la lista original
+                if (this.inicio != null) {
+                    this.inicio.setPrev(null); // Actualiza el enlace previo del nuevo inicio
+                }
+                nodoEliminado.setNext(null); // Desenlaza el nodo eliminado
+                listaInvertida.insertarInicio(nodoEliminado.getDato()); // Inserta el nodo al inicio de la lista invertida
+            }
+            // Actualiza la lista original con la lista invertida
+            this.setInicio(listaInvertida.getInicio());
+        }
+    }
+
+    public void Mezclar(ListaLDoble Lista1, ListaLDoble Lista2)
+    { 
+        Nodo nodoAuxL = Lista1.getInicio(); // Obtener el inicio de la lista 1
+        Nodo nodoAuxl3 = new Nodo(-1); // Nodo ficticio para la lista mezclada
+        Nodo auxl3 = nodoAuxl3; // Nodo auxiliar de la lista mezclada
+
+        // Copiar nodos de Lista1 a la lista mezclada
+        while (nodoAuxL != null) {
+        // Encontrar la posición correcta para insertar el nuevo nodo
+        while (auxl3.getNext() != null && auxl3.getNext().getDato() <= nodoAuxL.getDato())
+        {
+        auxl3 = auxl3.getNext();
+        }
+        
+        // Insertar el nuevo nodo después de auxl3
+        Nodo nuevoNodo = new Nodo(nodoAuxL.getDato());
+        if(auxl3.getNext()==null)
+        {
+            auxl3.setNext(nuevoNodo);
+            nuevoNodo.setPrev(auxl3);
+        }
+        else
+        {
+            nuevoNodo.setNext(auxl3.getNext());
+            auxl3.getNext().setPrev(nuevoNodo);
+            auxl3.setNext(nuevoNodo);
+            nuevoNodo.setPrev(auxl3);
+        }
+        // Mover al siguiente nodo en Lista1
+        nodoAuxL = nodoAuxL.getNext();
+        // Reiniciar auxl3 al inicio de la lista mezclada
+        auxl3 = nodoAuxl3;
+        }
+
+        // Copiar nodos de Lista2 a la lista mezclada
+        nodoAuxL = Lista2.getInicio();
+        auxl3 = nodoAuxl3; // Reiniciar auxl3 al inicio de la lista mezclada
+        while (nodoAuxL != null) 
+        {
+        // Encontrar la posición correcta para insertar el nuevo nodo
+        while (auxl3.getNext() != null && auxl3.getNext().getDato() <= nodoAuxL.getDato()) 
+        {
+        auxl3 = auxl3.getNext();
+        }
+        // Insertar el nuevo nodo después de auxl3
+        Nodo nuevoNodo = new Nodo(nodoAuxL.getDato());
+        if(auxl3.getNext()==null)
+        {
+            auxl3.setNext(nuevoNodo);
+            nuevoNodo.setPrev(auxl3);
+        }
+        else
+        {
+            nuevoNodo.setNext(auxl3.getNext());
+            auxl3.getNext().setPrev(nuevoNodo);
+            auxl3.setNext(nuevoNodo);
+            nuevoNodo.setPrev(auxl3);
+        }
+        // Mover al siguiente nodo en Lista2
+        nodoAuxL = nodoAuxL.getNext();
+        // Reiniciar auxl3 al inicio de la lista mezclada
+        auxl3 = nodoAuxl3;
+        }
+
+        // Establecer el inicio de la lista mezclada
+        this.setInicio(nodoAuxl3.getNext()); // nodoAuxl3 es un nodo ficticio, por lo que su siguiente es el inicio real de la lista mezclada
+        System.out.println("Listas mezcladas de forma ordenada");
+    }
     
+    public void BorrarLista(){
+        this.inicio=null;
+    }
+
      
     public boolean estaVacia(){
         return inicio==null;

@@ -30,7 +30,4 @@ public class Nodo {
     public int getDato() {
         return dato;
     }
-    
-
-    
 }

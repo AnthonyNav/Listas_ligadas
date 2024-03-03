@@ -12,7 +12,8 @@ public class App
         Scanner scan = new Scanner(System.in);
         ListaLDoble l1 = new ListaLDoble();
         ListaLDoble l2 = new ListaLDoble();
-        ListaLDoble auxl = new ListaLDoble();
+        ListaLDoble l3 = new ListaLDoble();
+        ListaLDoble auxl = l1;
         String auxprint = "";
         boolean salir = false;
 
@@ -27,15 +28,14 @@ public class App
             System.out.println("0. Salir");
             System.out.print("Elija una opción: ");
             opcion = scan.nextInt();
-            if (opcion == 0) {
-                System.out.println("Saliendo...");
-            } else {
-                System.out.println("\nEstado de las listas");
-                auxprint = (l1.estaVacia()) ? " ":l1.imprimirElementos();
-                System.out.println("L1)" + auxprint);
-                auxprint = (l2.estaVacia()) ? " ":l2.imprimirElementos();
-                System.out.println("L2)" + auxprint);
-                System.out.println("\n");
+
+            if (opcion != 0 && opcion != 5) {
+                // System.out.println("\nEstado de las listas");
+                // auxprint = (l1.estaVacia()) ? " ":l1.imprimirElementos();
+                // System.out.println("L1)" + auxprint);
+                // auxprint = (l2.estaVacia()) ? " ":l2.imprimirElementos();
+                // System.out.println("L2)" + auxprint);
+                // System.out.println("\n");
                 System.out.println("Seleccione una lista para realizar la accion: \n1) L1\n2) L2");
                 oplist = scan.nextInt();
                 auxl = (oplist == 1) ? l1:l2;
@@ -160,13 +160,36 @@ public class App
                     }
                     break;
                 case 4:
-                    // invertir
+                    if (!auxl.estaVacia()) {
+                        auxl.invertirLista();
+                        System.out.println("Lista invertida: " + auxl.imprimirElementos());
+                    } else {
+                        System.out.println("No se puede invertir la lista porque esta vacia.");
+                    }
                     break;
                 case 5:
-                    // Mezclar
+                    if(l1==null && l2==null)
+                    System.out.println("Las listas estan vacias");
+                    else
+                    {
+                        if(l1==null)
+                            System.out.println("La lista 1 esta vacia");
+                        else
+                            if(l2==null)
+                                System.out.println("La lista 2 esta vacia");
+                            else 
+                            {
+                                l3.BorrarLista();
+                                l3.Mezclar(l1, l2);
+                                System.out.println("El contenido de la lista 1 es: " + l1.imprimirElementos());
+                                System.out.println("El contenido de la lista 2 es: " + l2.imprimirElementos());
+                                System.out.println("Los elementos mezclados en orden son: " + l3.imprimirElementos());
+                            }
+                        }
                     break;
                 case 0:
                     salir = true;
+                    System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opcion no valida.");
